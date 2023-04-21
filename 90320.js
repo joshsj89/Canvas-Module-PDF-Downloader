@@ -25,7 +25,9 @@ modules.forEach((module) => {
     });
     
     downloadMergedButton.addEventListener('click', () => {
-        get_pdf(module.id);
+        const name = module.querySelector('.name').innerHTML;
+        
+        get_pdf(module.id, name);
     });
 });
 
@@ -59,7 +61,7 @@ const get_pdfs = async (module_id) => {
 }
 
 // Downloads multiple pdfs and combines them into one
-const get_pdf = async (module_id) => {
+const get_pdf = async (module_id, name) => {
     const data = await get_module(module_id);
     
     const sourcePDFDoc = await PDFLib.PDFDocument.create();
@@ -82,7 +84,7 @@ const get_pdf = async (module_id) => {
         }
     }
     
-    const filename = 'download.pdf';
+    const filename = `${name}.pdf`;
     const combinedPDFBytes = await sourcePDFDoc.save();
     const blob = new Blob([combinedPDFBytes]);
     const link = document.createElement('a');
