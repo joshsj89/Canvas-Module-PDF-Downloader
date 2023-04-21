@@ -1,7 +1,7 @@
 const axios_script = document.createElement('script');
-axios_script.src = 'https://unpkg.com/axios/dist/axios.min.js';
+axios_script.src = 'scripts/axios.min.js';
 const pdf_lib = document.createElement('script');
-pdf_lib.src = 'https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js';
+pdf_lib.src = 'scripts/pdf-lib.min.js';
 
 document.head.appendChild(axios_script);
 document.head.appendChild(pdf_lib);

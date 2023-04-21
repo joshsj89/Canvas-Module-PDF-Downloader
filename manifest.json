@@ -13,14 +13,11 @@
             "https://camino.instructure.com/*"
         ],
         "js": [
-            "script.js"
+            "script.js",
+            "scripts/axios.min.js",
+            "scripts/pdf-lib.min.js"
         ]
       }
-    ],
-    "browser_action": {
-      "default_title": "My Extension",
-      "default_icon": "icon.png",
-      "default_popup": "popup.html"
-    }
+    ]
   }
   
