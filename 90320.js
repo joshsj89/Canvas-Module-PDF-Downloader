@@ -3,13 +3,14 @@ script.src = 'https://unpkg.com/axios/dist/axios.min.js';
 document.head.appendChild(script);
 
 const wrapper = document.getElementById('238596');
+const prerequisites = wrapper.querySelector('.prerequisites');
 
 // Create a new button element
 const newButton = document.createElement('button');
 newButton.textContent = 'Download';
 
 // Append the new button as a child of the wrapper element, before the existing button
-wrapper.insertBefore(newButton, wrapper.firstChild);
+wrapper.insertBefore(newButton, prerequisites);
 
 const get_module = async (data_module_url) => {
 
