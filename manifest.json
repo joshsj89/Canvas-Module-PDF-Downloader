@@ -1,0 +1,26 @@
+{
+    "manifest_version": 3,
+    "name": "Canvas Module PDF Downloader",
+    "version": "1.0",
+    "description": "Download all PDFs from a Canvas module either separately or combined. ~ by @joshsj89 on GitHub",
+    "permissions": [
+      "activeTab",
+      "downloads"
+    ],
+    "content_scripts": [
+      {
+        "matches": [
+            "https://camino.instructure.com/*"
+        ],
+        "js": [
+            "script.js"
+        ]
+      }
+    ],
+    "browser_action": {
+      "default_title": "My Extension",
+      "default_icon": "icon.png",
+      "default_popup": "popup.html"
+    }
+  }
+  
