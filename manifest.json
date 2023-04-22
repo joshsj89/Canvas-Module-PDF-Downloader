@@ -1,8 +1,8 @@
 {
     "manifest_version": 3,
     "name": "Canvas Module PDF Downloader",
-    "version": "1.0.3",
-    "description": "Download all PDFs from a Canvas module either separately or combined. ~ by @joshsj89 on GitHub",
+    "version": "1.0.4",
+    "description": "Download all PDFs from a Canvas module either individaully or as a combined file. ~ by @joshsj89 on GitHub",
     "author": "Josh Kindarara",
     "icons": {
       "16": "icons/icon16.png",
