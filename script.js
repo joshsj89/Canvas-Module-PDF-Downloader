@@ -1,11 +1,3 @@
-const axios_script = document.createElement('script');
-axios_script.src = 'scripts/axios.min.js';
-const pdf_lib = document.createElement('script');
-pdf_lib.src = 'scripts/pdf-lib.min.js';
-
-document.head.appendChild(axios_script);
-document.head.appendChild(pdf_lib);
-
 const modules = document.querySelectorAll(".ig-header");
 
 modules.forEach((module) => {
