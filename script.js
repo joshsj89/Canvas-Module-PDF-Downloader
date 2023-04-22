@@ -31,8 +31,14 @@ modules.forEach((module) => {
     });
 });
 
+// Gets the current URL
+const currentURL = window.location.href;
+// Extracts the course ID from the URL
+const course_id = currentURL.match(/courses\/(\d+)/)[1];
+
+
 const get_module = async (module_id) => {
-    const response = await axios.get(`https://camino.instructure.com/api/v1/courses/90320/modules/${module_id}/items`);
+    const response = await axios.get(`https://camino.instructure.com/api/v1/courses/${course_id}/modules/${module_id}/items`);
     const data = response.data;
     return data;
 }
