@@ -1,7 +1,14 @@
 // Gets the current URL
 const currentURL = window.location.href;
+
+// Extracts the domain name
+const domain = currentURL.match(/https:\/\/.+.com/)[0]; //https://*.instructure.com
+
 // Extracts the course ID from the URL
-const course_id = currentURL.match(/courses\/(\d+)/)[1];
+const course_id_arr = currentURL.match(/courses\/(\d+)/);
+if (course_id_arr) {
+    var course_id = course_id_arr[1];
+}
 
 
 /***************************************************************/
@@ -34,7 +41,7 @@ modules.forEach((module) => {
 
 
 const get_module = async (module_id) => {
-    const response = await axios.get(`https://camino.instructure.com/api/v1/courses/${course_id}/modules/${module_id}/items`);
+    const response = await axios.get(`${domain}/api/v1/courses/${course_id}/modules/${module_id}/items`);
     const data = response.data;
     return data;
 }
@@ -136,7 +143,7 @@ window.addEventListener('load', () => {
         files.forEach(async (file) => {
             const data_id = file.getAttribute('data-id');
             const title = file.getAttribute('title');
-            const url = `https://camino.instructure.com/courses/${course_id}/files/${data_id}/download?download_frd=1`;
+            const url = `${domain}/courses/${course_id}/files/${data_id}/download?download_frd=1`;
             window.open(url, '_blank');
             console.log(`${title} downloaded successfully.`);
         });
