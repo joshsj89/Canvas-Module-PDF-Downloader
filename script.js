@@ -1,3 +1,12 @@
+// Gets the current URL
+const currentURL = window.location.href;
+// Extracts the course ID from the URL
+const course_id = currentURL.match(/courses\/(\d+)/)[1];
+
+
+/***************************************************************/
+//Module PDF Downloader
+
 const modules = document.querySelectorAll(".ig-header");
 
 modules.forEach((module) => {
@@ -22,11 +31,6 @@ modules.forEach((module) => {
         get_pdf(module.id, name);
     });
 });
-
-// Gets the current URL
-const currentURL = window.location.href;
-// Extracts the course ID from the URL
-const course_id = currentURL.match(/courses\/(\d+)/)[1];
 
 
 const get_module = async (module_id) => {
@@ -53,7 +57,7 @@ const get_pdfs = async (module_id) => {
             link.href = window.URL.createObjectURL(blob);
             link.download = filename;
             link.click();
-            console.log(`"${data2['display_name']}" downloaded successfully.`);
+            console.log(`"${filename}" downloaded successfully.`);
         }
     }
 }
@@ -91,3 +95,50 @@ const get_pdf = async (module_id, name) => {
     link.click();
     console.log(`"${filename}" created successfully.`);
 }
+
+/***************************************************************/
+// Page Files Downloader
+
+// Wait for 'Alternative Formats' button to show up
+window.addEventListener('load', () => {
+    // Find 'Alternative Formats' button
+    const targetElement = document.querySelector('button.ally-accessible-versions');
+    // Create a new button
+    const newButton = document.createElement('a');
+    newButton.href = '#';
+    newButton.role = 'button';
+    newButton.tabindex = '0';
+    newButton.classList.add('al-trigger');
+    newButton.setAttribute('aria-haspopup', 'true');
+    
+    const imgElement = document.createElement('img');
+    imgElement.style.width = '16px';
+    imgElement.style.height = '16px';
+    imgElement.src = '/images/svg-icons/svg_icon_download.svg';
+    imgElement.alt = '';
+    imgElement.role = 'presentation';
+    newButton.appendChild(imgElement);
+    
+    const spanElement = document.createElement('span');
+    spanElement.classList.add('screenreader-only');
+    spanElement.textContent = 'Download all files on this page';
+    newButton.appendChild(spanElement);
+
+    // Insert new button right after 'Alternative Formats' button
+    if (targetElement) {
+        targetElement.insertAdjacentElement('afterend', newButton);
+    }
+
+    // When the new button is clicked, open all the files' download links
+    newButton.addEventListener('click', () => {
+        const files = document.querySelectorAll('[data-api-returntype="File"]');
+
+        files.forEach(async (file) => {
+            const data_id = file.getAttribute('data-id');
+            const title = file.getAttribute('title');
+            const url = `https://camino.instructure.com/courses/${course_id}/files/${data_id}/download?download_frd=1`;
+            window.open(url, '_blank');
+            console.log(`${title} downloaded successfully.`);
+        });
+    })
+});
