@@ -14,7 +14,7 @@ if (course_id_arr) {
 /***************************************************************/
 //Module PDF Downloader
 
-const modules = document.querySelectorAll(".ig-header");
+const modules = document.querySelectorAll('.ig-header');
 
 modules.forEach((module) => {
     // Create a new button element
@@ -27,14 +27,14 @@ modules.forEach((module) => {
     module.appendChild(downloadSeparateButton);
     module.appendChild(downloadMergedButton);
 
+    const name = module.querySelector('.name').textContent;
+
     // Listen for click on button
     downloadSeparateButton.addEventListener('click', () => {
-        get_pdfs(module.id);
+        get_pdfs(module.id, name);
     });
     
     downloadMergedButton.addEventListener('click', () => {
-        const name = module.querySelector('.name').innerHTML;
-        
         get_pdf(module.id, name);
     });
 });
@@ -47,7 +47,9 @@ const get_module = async (module_id) => {
 }
 
 // Downloads separate pdfs
-const get_pdfs = async (module_id) => {
+const get_pdfs = async (module_id, name) => {
+    const zip = new JSZip();
+    
     const data = await get_module(module_id);
 
     for (const info of data) {
@@ -60,12 +62,28 @@ const get_pdfs = async (module_id) => {
         if (data2['content-type'] === 'application/pdf') {
             const response2 = await axios.get(url2, { responseType: 'arraybuffer' });
             const blob = new Blob([response2.data]);
-            const link = document.createElement('a');
-            link.href = window.URL.createObjectURL(blob);
-            link.download = filename;
-            link.click();
-            console.log(`"${filename}" downloaded successfully.`);
+            
+            zip.file(filename, blob);
+            console.log(`"${filename}" added to zip successfully.`);
         }
+    }
+
+    
+    try {
+        const zipFilename = `${name}.zip`;
+        const content = await zip.generateAsync({ type: 'blob' });
+        // const blob = new Blob([content]);
+        const link = document.createElement('a');
+        link.href = window.URL.createObjectURL(content);
+        link.download = zipFilename;
+        link.click();
+        console.log(`"${zipFilename}" created successfully.`);
+    
+        setTimeout(() => {
+            window.URL.revokeObjectURL(link.href);
+        }, 100);
+    } catch (error) {
+        console.log(error);
     }
 }
 

@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "Canvas Module PDF Downloader",
-    "version": "1.1.1",
+    "version": "1.2.0",
     "description": "Download all PDFs from a Canvas module either individually or as a combined file. ~ by @joshsj89 on GitHub",
     "author": "Josh Kindarara",
     "icons": {
@@ -22,6 +22,7 @@
         "js": [
             "script.js",
             "scripts/axios.min.js",
+            "scripts/jszip.min.js",
             "scripts/pdf-lib.min.js"
         ]
       }
