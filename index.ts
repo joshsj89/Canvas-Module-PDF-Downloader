@@ -94,7 +94,7 @@ modules.forEach((module: Element): void => {
 
 const get_module = async (module_id: string): Promise<CanvasModule[]> => {
     const response = await axios.get(`${domain}/api/v1/courses/${course_id}/modules/${module_id}/items`);
-    const data = await response.data;
+    const data: CanvasModule[] = await response.data;
     return data;
 }
 
